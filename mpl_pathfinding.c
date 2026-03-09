@@ -14,13 +14,15 @@ bool mpl_findpath(mpl_node_t *src, mpl_node_t *dst)
 
     // Initialize source
     src->best_cost = 0;
-    mpl_heap_push((mpl_heap_entry_t){
+    mpl_heap_entry_t tmp = {
         .cost = 0,
-        .node = src});
+        .node = src};
+    mpl_heap_push(&tmp);
 
     while (!mpl_heap_empty())
     {
-        mpl_heap_entry_t current_entry = mpl_heap_pop();
+        mpl_heap_entry_t current_entry;
+        bool success = mpl_heap_pop(&current_entry);
         mpl_node_t *current = current_entry.node;
 
         // lazy Dijkstra
@@ -47,8 +49,9 @@ bool mpl_findpath(mpl_node_t *src, mpl_node_t *dst)
             {
                 neighbor->best_cost = new_cost;
                 neighbor->best_prev_hop = current;
-                mpl_heap_push((mpl_heap_entry_t){.node = neighbor,
-                                                 .cost = new_cost});
+                mpl_heap_entry_t tmp = {.node = neighbor,
+                                        .cost = new_cost};
+                mpl_heap_push(&tmp);
             }
         }
     }

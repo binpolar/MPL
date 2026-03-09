@@ -89,7 +89,7 @@ void mpl_reset_node_costs()
 }
 
 // Helper functions
-uint32_t mpl_edge_count(void)
+uint16_t mpl_edge_count(void)
 {
     uint32_t count = 0;
     for (int i = 0; i < MPL_MAX_EDGES; i++)
@@ -100,7 +100,7 @@ uint32_t mpl_edge_count(void)
     return count;
 }
 
-uint32_t mpl_node_count(void)
+uint16_t mpl_node_count(void)
 {
     uint32_t count = 0;
     for (int i = 0; i < MPL_MAX_NODES; i++)
@@ -119,15 +119,4 @@ bool mpl_edges_full(void)
 bool mpl_nodes_full(void)
 {
     return mpl_node_count() >= MPL_MAX_NODES;
-}
-
-// Reset functions
-void mpl_clear_edges(void)
-{
-    cplus_heap_reset(&edge_descriptor); // or however you clear the hashmap
-}
-
-void mpl_clear_nodes(void)
-{
-    cplus_heap_reset(&node_descriptor); // or however you clear the hashmap
 }
