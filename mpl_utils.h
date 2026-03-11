@@ -25,7 +25,7 @@ typedef struct mpl_edge_t
 
 typedef struct mpl_node_t
 {
-    uint32_t address;
+    uint16_t address;
     bool is_valid;
 
     mpl_edge_t *edges[MPL_MAX_NEIGHBORS];
@@ -42,8 +42,8 @@ typedef struct mpl_heap_entry_t
 
 } mpl_heap_entry_t;
 
-//TODO CHECK STRUCTs MEM LAYOUT TO MATCH CPLUS ENTRIES Ts
+// TODO CHECK STRUCTs MEM LAYOUT TO MATCH CPLUS ENTRIES Ts
 
-bool mpl_trace_route(mpl_node_t* dest, mpl_node_t* src, mpl_route_t* res);
+bool mpl_trace_route(mpl_node_t *dest, mpl_node_t *src, mpl_route_t *res);
 
 #endif
