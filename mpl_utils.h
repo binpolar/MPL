@@ -25,7 +25,7 @@ typedef struct mpl_edge_t
 
 typedef struct mpl_node_t
 {
-    uint16_t address;
+    uint32_t address;
     bool is_valid;
 
     mpl_edge_t *edges[MPL_MAX_NEIGHBORS];

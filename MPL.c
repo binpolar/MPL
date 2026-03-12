@@ -14,7 +14,7 @@ bool mpl_create_edge_if_not_exist(mpl_node_t *node1, mpl_node_t *node2, uint8_t 
     uint16_t smallest = node1->address < node2->address ? node1->address : node2->address;
     uint16_t biggest = smallest == node1->address ? node2->address : node1->address;
 
-    uint32_t edge_hash = cplus_hash_func(smallest | biggest << 16);
+    uint32_t edge_hash = cplus_hash_func(smallest | (biggest << 16));
 
     mpl_edge_t edge;
     edge.addresses_hash = edge_hash; // TODO rename, use cooler curly bras init
