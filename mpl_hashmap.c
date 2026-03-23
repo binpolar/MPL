@@ -9,6 +9,7 @@
 // Storage arrays
 mpl_edge_t edges[MPL_MAX_EDGES];
 mpl_node_t nodes[MPL_MAX_NODES];
+mpl_route_t routes[MPL_MAX_NODES];
 
 // Hashmap descriptors - FIXED initialization syntax
 cplus_hashmap_desc_t edge_descriptor = {
@@ -21,11 +22,17 @@ cplus_hashmap_desc_t node_descriptor = {
     .data_size = sizeof(mpl_node_t),
     .data_length = MPL_MAX_NODES};
 
+cplus_hashmap_desc_t downlinks_descriptor = {
+    .data = routes,
+    .data_size = sizeof(routes),
+    .data_length = MPL_MAX_NODES};
+
 // Auto-initialization
 __attribute__((constructor)) static void init_maps(void)
 {
     cplus_hashmap_init(&edge_descriptor);
     cplus_hashmap_init(&node_descriptor);
+    cplus_hashmap_init(&downlinks_descriptor);
 }
 
 // Edge functions
@@ -49,6 +56,29 @@ bool mpl_remove_edge(uint32_t key) // Fixed: use cplus_hashmap_remove
 bool mpl_edge_exists(uint32_t key)
 {
     return cplus_hashmap_exists(&edge_descriptor, key);
+}
+
+// dolwnlinksk functions
+mpl_route_t *mpl_get_downlink(uint32_t key)
+{
+    return (mpl_route_t *)cplus_hashmap_get(&downlinks_descriptor, key);
+}
+
+bool mpl_put_downlink(mpl_route_t *route)
+{
+    if (!route)
+        return false;
+    return cplus_hashmap_put(&downlinks_descriptor, route);
+}
+
+bool mpl_remove_downlink(uint32_t key) // Fixed: use cplus_hashmap_remove
+{
+    return cplus_hashmap_remove(&downlinks_descriptor, key);
+}
+
+bool mpl_downliink_exists(uint32_t key)
+{
+    return cplus_hashmap_exists(&downlinks_descriptor, key);
 }
 
 // Node functions
