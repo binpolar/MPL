@@ -16,7 +16,7 @@ bool mpl_edge_exists(uint32_t key);
 
 // downlinks functions
 struct mpl_route_t *mpl_get_downlink(uint32_t key);
-bool mpl_put_downlink(mpl_edge_t *edge);
+bool mpl_put_downlink(mpl_route_t *route);
 bool mpl_remove_downlink(uint32_t key);
 bool mpl_downlink_exists(uint32_t key);
 
