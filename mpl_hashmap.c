@@ -21,6 +21,16 @@ cplus_hashmap_desc_t node_descriptor = {
     .data_size = sizeof(mpl_node_t),
     .data_length = MPL_MAX_NODES};
 
+cplus_hashmap_desc_t downlinks_descriptor = {
+    .data = downlinks,
+    .data_size = sizeof(mpl_route_t),
+    .data_length = MPL_MAX_NODES};
+
+void *get_downlink_desc_data()
+{
+    return downlinks;
+}
+
 // Auto-initialization doesnt work on msvc
 /*__attribute__((constructor)) static*/ void init_maps(void)
 {

@@ -8,6 +8,9 @@
 
 typedef struct mpl_route_t
 {
+    uint32_t key; // sender/down dest
+    bool is_valid;
+
     uint16_t hops[MPL_MAX_ROUTE_LEN];
     uint8_t hop_count;
     uint32_t total_cost;
