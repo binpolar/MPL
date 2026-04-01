@@ -9,6 +9,7 @@
 // Storage arrays
 mpl_edge_t edges[MPL_MAX_EDGES];
 mpl_node_t nodes[MPL_MAX_NODES];
+mpl_route_t downlinks[MPL_MAX_NODES];
 
 // Hashmap descriptors - FIXED initialization syntax
 cplus_hashmap_desc_t edge_descriptor = {

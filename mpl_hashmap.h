@@ -9,6 +9,7 @@
 #include <stdbool.h>
 
 void init_maps(void);
+void *get_downlink_desc_data();
 
 // Edge functions
 struct mpl_edge_t *mpl_get_edge(mpl_node_t *n1, mpl_node_t *n2);

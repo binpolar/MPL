@@ -1,5 +1,6 @@
 #include "mpl_utils.h"
 #include <stdbool.h>
+#include <stddef.h>
 
 bool mpl_trace_route(mpl_node_t *dest, mpl_node_t *src, mpl_route_t *res)
 {
