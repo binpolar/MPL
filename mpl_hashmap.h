@@ -8,11 +8,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+void init_maps(void);
+
 // Edge functions
-struct mpl_edge_t *mpl_get_edge(uint32_t key);
+struct mpl_edge_t *mpl_get_edge(mpl_node_t *n1, mpl_node_t *n2);
 bool mpl_put_edge(mpl_edge_t *edge);
 bool mpl_remove_edge(uint32_t key);
-bool mpl_edge_exists(uint32_t key);
+bool mpl_edge_exists(mpl_node_t *n1, mpl_node_t *n2);
 
 // Node functions
 struct mpl_node_t *mpl_get_node(uint32_t address);

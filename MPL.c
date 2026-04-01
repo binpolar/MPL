@@ -9,18 +9,15 @@
 
 void mpl_init(void); // TODO reset nw data structures
 
-bool mpl_create_edge_if_not_exist(mpl_node_t *node1, mpl_node_t *node2, uint8_t quality)
+bool mpl_create_or_update_edge(mpl_node_t *node1, mpl_node_t *node2, uint8_t quality)
 {
-    uint16_t smallest = node1->address < node2->address ? node1->address : node2->address;
-    uint16_t biggest = smallest == node1->address ? node2->address : node1->address;
-
-    uint32_t edge_hash = smallest | (biggest << 16);
 
     mpl_edge_t edge;
-    edge.addresses_hash = edge_hash; // TODO rename, use cooler curly bras init
+    edge.addresses_hash = mpl_get_edge_key(node1, node2); // TODO rename, use cooler curly bras init
     edge.link_quality = quality;
     edge.nodes[0] = node1;
     edge.nodes[1] = node2;
+
     return mpl_put_edge(&edge);
 }
 

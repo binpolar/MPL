@@ -29,9 +29,9 @@ cplus_hashmap_desc_t node_descriptor = {
 }
 
 // Edge functions
-mpl_edge_t *mpl_get_edge(uint32_t key)
+mpl_edge_t *mpl_get_edge(mpl_node_t *n1, mpl_node_t *n2)
 {
-    return (mpl_edge_t *)cplus_hashmap_get(&edge_descriptor, key);
+    return (mpl_edge_t *)cplus_hashmap_get(&edge_descriptor, mpl_get_edge_key(n1, n2));
 }
 
 bool mpl_put_edge(mpl_edge_t *edge) // Changed to pointer
@@ -46,9 +46,9 @@ bool mpl_remove_edge(uint32_t key) // Fixed: use cplus_hashmap_remove
     return cplus_hashmap_remove(&edge_descriptor, key);
 }
 
-bool mpl_edge_exists(uint32_t key)
+bool mpl_edge_exists(mpl_node_t *n1, mpl_node_t *n2)
 {
-    return cplus_hashmap_exists(&edge_descriptor, key);
+    return cplus_hashmap_exists(&edge_descriptor, mpl_get_edge_key(n1, n2));
 }
 
 // Node functions
