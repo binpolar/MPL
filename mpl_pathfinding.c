@@ -34,24 +34,27 @@ bool mpl_findpath(mpl_node_t *src, mpl_node_t *dst)
             return true;
 
         // Check all neighbors
-        for (int i = 0; i < MPL_MAX_NEIGHBORS && current->edges[i]; i++)
+        for (int i = 0; i < MPL_MAX_NEIGHBORS; i++)
         {
-            mpl_edge_t *edge = current->edges[i];
-
-            // Get the neighbor on the other end of this edge
-            mpl_node_t *neighbor = (edge->nodes[0] == current) ? edge->nodes[1] : edge->nodes[0];
-
-            // Calculate new cost via current node
-            uint32_t new_cost = current->best_cost + edge->link_quality;
-
-            // If we found a better path to neighbor
-            if (new_cost < neighbor->best_cost)
+            if (current->edges[i] != NULL)
             {
-                neighbor->best_cost = new_cost;
-                neighbor->best_prev_hop = current;
-                mpl_heap_entry_t tmp = {.node = neighbor,
-                                        .cost = new_cost};
-                mpl_heap_push(&tmp);
+                mpl_edge_t *edge = current->edges[i];
+
+                // Get the neighbor on the other end of this edge
+                mpl_node_t *neighbor = (edge->nodes[0] == current) ? edge->nodes[1] : edge->nodes[0];
+
+                // Calculate new cost via current node
+                uint32_t new_cost = current->best_cost + edge->link_quality;
+
+                // If we found a better path to neighbor
+                if (new_cost < neighbor->best_cost)
+                {
+                    neighbor->best_cost = new_cost;
+                    neighbor->best_prev_hop = current;
+                    mpl_heap_entry_t tmp = {.node = neighbor,
+                                            .cost = new_cost};
+                    mpl_heap_push(&tmp);
+                }
             }
         }
     }

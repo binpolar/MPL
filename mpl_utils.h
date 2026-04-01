@@ -47,4 +47,6 @@ typedef struct mpl_heap_entry_t
 bool mpl_trace_route(mpl_node_t *dest, mpl_node_t *src, mpl_route_t *res);
 uint32_t mpl_get_edge_key(mpl_node_t *n1, mpl_node_t *n2);
 
+void mpl_add_edge_to_node(mpl_node_t *node, mpl_edge_t *edge);
+
 #endif

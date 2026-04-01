@@ -13,7 +13,7 @@ static mpl_heap_entry_t heap_storage[MPL_MAX_HEAP_SIZE];
 static cplus_heap_desc_t heap_desc;
 
 // Auto-initialization
-/*__attribute__((constructor))*/ static void init_heap(void)
+/*__attribute__((constructor)) static*/ void init_heap(void)
 {
     heap_desc.data = heap_storage;
     heap_desc.data_size = sizeof(mpl_heap_entry_t);

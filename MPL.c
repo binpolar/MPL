@@ -12,23 +12,31 @@ void mpl_init(void); // TODO reset nw data structures
 bool mpl_create_or_update_edge(mpl_node_t *node1, mpl_node_t *node2, uint8_t quality)
 {
 
-    mpl_edge_t edge;
+    mpl_edge_t edge, *created_edge;
     edge.addresses_hash = mpl_get_edge_key(node1, node2); // TODO rename, use cooler curly bras init
     edge.link_quality = quality;
     edge.nodes[0] = node1;
     edge.nodes[1] = node2;
 
-    return mpl_put_edge(&edge);
+    bool ret = mpl_put_edge(&edge);
+    created_edge = mpl_get_edge(node1, node2);
+
+    mpl_add_edge_to_node(node1, created_edge);
+    mpl_add_edge_to_node(node2, created_edge);
+
+    return ret;
 }
 
-bool mpl_find_route(uint32_t src_addr, uint32_t dest_addr, mpl_route_t *route)
+bool mpl_create_node_if_not_exists(uint32_t addr)
 {
-    mpl_node_t *src = mpl_get_node(src_addr);
-    mpl_node_t *dest = mpl_get_node(dest_addr);
+    mpl_node_t node = {0};
+    node.address = addr;
 
-    if (!src || !dest)
-        return false;
+    return mpl_put_node(&node);
+}
 
+bool mpl_find_route(mpl_node_t *src, mpl_node_t *dest, mpl_route_t *route)
+{
     // Run Dijkstra
     if (!mpl_findpath(src, dest))
         return false;
