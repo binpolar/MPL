@@ -21,8 +21,8 @@ cplus_hashmap_desc_t node_descriptor = {
     .data_size = sizeof(mpl_node_t),
     .data_length = MPL_MAX_NODES};
 
-// Auto-initialization
-__attribute__((constructor)) static void init_maps(void)
+// Auto-initialization doesnt work on msvc
+/*__attribute__((constructor)) static*/ void init_maps(void)
 {
     cplus_hashmap_init(&edge_descriptor);
     cplus_hashmap_init(&node_descriptor);
