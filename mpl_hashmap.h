@@ -1,19 +1,19 @@
 #ifndef MPL_HASHMAP_H_
 #define MPL_HASHMAP_H_
 
-#define MPL_MAX_EDGES 2047 // must be 2^n minus one for efficient modulus ops!!!
+#define MPL_MAX_EDGES 511 // must be 2^n minus one for efficient modulus ops!!!
 
-#define MPL_MAX_NODES 4095 // must be 2^n minus one for efficient modulus ops!!!
+#define MPL_MAX_NODES 255 // must be 2^n minus one for efficient modulus ops!!!
 
 #include <stdint.h>
 #include <stdbool.h>
 
 // Hashmap descriptors - FIXED initialization syntax
-struct cplus_hashmap_desc_t *edge_descriptor;
+extern struct cplus_hashmap_desc_t *edge_descriptor;
 
-struct cplus_hashmap_desc_t *node_descriptor;
+extern struct cplus_hashmap_desc_t *node_descriptor;
 
-struct cplus_hashmap_desc_t *downlinks_descriptor;
+extern struct cplus_hashmap_desc_t *downlinks_descriptor;
 
 void init_maps(void);
 
