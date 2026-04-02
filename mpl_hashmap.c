@@ -12,77 +12,76 @@ mpl_node_t nodes[MPL_MAX_NODES];
 mpl_route_t downlinks[MPL_MAX_NODES];
 
 // Hashmap descriptors - FIXED initialization syntax
-cplus_hashmap_desc_t edge_descriptor = {
+cplus_hashmap_desc_t tedge_descriptor = {
     .data = edges,
     .data_size = sizeof(mpl_edge_t),
     .data_length = MPL_MAX_EDGES};
 
-cplus_hashmap_desc_t node_descriptor = {
+cplus_hashmap_desc_t tnode_descriptor = {
     .data = nodes,
     .data_size = sizeof(mpl_node_t),
     .data_length = MPL_MAX_NODES};
 
-cplus_hashmap_desc_t downlinks_descriptor = {
+cplus_hashmap_desc_t tdownlinks_descriptor = {
     .data = downlinks,
     .data_size = sizeof(mpl_route_t),
     .data_length = MPL_MAX_NODES};
 
-void *get_downlink_desc_data()
-{
-    return downlinks;
-}
-
 // Auto-initialization doesnt work on msvc
 /*__attribute__((constructor)) static*/ void init_maps(void)
 {
-    cplus_hashmap_init(&edge_descriptor);
-    cplus_hashmap_init(&node_descriptor);
+    downlinks_descriptor = &tdownlinks_descriptor;
+    node_descriptor = &tnode_descriptor;
+    edge_descriptor = &tedge_descriptor;
+    cplus_hashmap_init(edge_descriptor);
+    cplus_hashmap_init(node_descriptor);
+    cplus_hashmap_init(downlinks_descriptor);
 }
 
 // Edge functions
 mpl_edge_t *mpl_get_edge(mpl_node_t *n1, mpl_node_t *n2)
 {
-    return (mpl_edge_t *)cplus_hashmap_get(&edge_descriptor, mpl_get_edge_key(n1, n2));
+    return (mpl_edge_t *)cplus_hashmap_get(edge_descriptor, mpl_get_edge_key(n1, n2));
 }
 
 bool mpl_put_edge(mpl_edge_t *edge) // Changed to pointer
 {
     if (!edge)
         return false;
-    return cplus_hashmap_put(&edge_descriptor, edge);
+    return cplus_hashmap_put(edge_descriptor, edge);
 }
 
 bool mpl_remove_edge(uint32_t key) // Fixed: use cplus_hashmap_remove
 {
-    return cplus_hashmap_remove(&edge_descriptor, key);
+    return cplus_hashmap_remove(edge_descriptor, key);
 }
 
 bool mpl_edge_exists(mpl_node_t *n1, mpl_node_t *n2)
 {
-    return cplus_hashmap_exists(&edge_descriptor, mpl_get_edge_key(n1, n2));
+    return cplus_hashmap_exists(edge_descriptor, mpl_get_edge_key(n1, n2));
 }
 
 // Node functions
 mpl_node_t *mpl_get_node(uint32_t key)
 {
-    return (mpl_node_t *)cplus_hashmap_get(&node_descriptor, key);
+    return (mpl_node_t *)cplus_hashmap_get(node_descriptor, key);
 }
 
 bool mpl_put_node(mpl_node_t *node) // Fixed function name and parameter
 {
     if (!node)
         return false;
-    return cplus_hashmap_put(&node_descriptor, node);
+    return cplus_hashmap_put(node_descriptor, node);
 }
 
 bool mpl_remove_node(uint32_t address)
 {
-    return cplus_hashmap_remove(&node_descriptor, address);
+    return cplus_hashmap_remove(node_descriptor, address);
 }
 
 bool mpl_node_exists(uint32_t address)
 {
-    return cplus_hashmap_exists(&node_descriptor, address);
+    return cplus_hashmap_exists(node_descriptor, address);
 }
 
 void mpl_reset_node_costs()

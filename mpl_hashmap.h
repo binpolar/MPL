@@ -8,8 +8,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// Hashmap descriptors - FIXED initialization syntax
+struct cplus_hashmap_desc_t *edge_descriptor;
+
+struct cplus_hashmap_desc_t *node_descriptor;
+
+struct cplus_hashmap_desc_t *downlinks_descriptor;
+
 void init_maps(void);
-void *get_downlink_desc_data();
 
 // Edge functions
 struct mpl_edge_t *mpl_get_edge(mpl_node_t *n1, mpl_node_t *n2);
