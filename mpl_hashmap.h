@@ -23,6 +23,12 @@ bool mpl_put_edge(mpl_edge_t *edge);
 bool mpl_remove_edge(uint32_t key);
 bool mpl_edge_exists(mpl_node_t *n1, mpl_node_t *n2);
 
+// downlinks functions
+struct mpl_route_t *mpl_get_downlink(uint32_t key);
+bool mpl_put_downlink(mpl_route_t *route);
+bool mpl_remove_downlink(uint32_t key);
+bool mpl_downlink_exists(uint32_t key);
+
 // Node functions
 struct mpl_node_t *mpl_get_node(uint32_t address);
 bool mpl_put_node(struct mpl_node_t *node);

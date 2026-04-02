@@ -132,3 +132,26 @@ bool mpl_nodes_full(void)
 {
     return mpl_node_count() >= MPL_MAX_NODES;
 }
+
+// dolwnlinksk functions
+mpl_route_t *mpl_get_downlink(uint32_t key)
+{
+    return (mpl_route_t *)cplus_hashmap_get(downlinks_descriptor, key);
+}
+
+bool mpl_put_downlink(mpl_route_t *route)
+{
+    if (!route)
+        return false;
+    return cplus_hashmap_put(downlinks_descriptor, route);
+}
+
+bool mpl_remove_downlink(uint32_t key) // Fixed: use cplus_hashmap_remove
+{
+    return cplus_hashmap_remove(downlinks_descriptor, key);
+}
+
+bool mpl_downliink_exists(uint32_t key)
+{
+    return cplus_hashmap_exists(downlinks_descriptor, key);
+}
