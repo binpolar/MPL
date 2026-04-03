@@ -27,6 +27,7 @@ bool mpl_trace_route(mpl_node_t *dest, mpl_node_t *src, mpl_route_t *res)
         res->hops[i] = current->address;
         current = current->best_prev_hop;
     }
+    return true;
 }
 
 uint32_t mpl_get_edge_key(mpl_node_t *n1, mpl_node_t *n2)
