@@ -19,19 +19,19 @@ void init_maps(void);
 
 // Edge functions
 struct mpl_edge_t *mpl_get_edge(mpl_node_t *n1, mpl_node_t *n2);
-bool mpl_put_edge(mpl_edge_t *edge);
+mpl_edge_t *mpl_put_edge(mpl_edge_t *edge);
 bool mpl_remove_edge(uint32_t key);
 bool mpl_edge_exists(mpl_node_t *n1, mpl_node_t *n2);
 
 // routes functions
 struct mpl_route_t *mpl_get_route(uint32_t key);
-bool mpl_put_route(mpl_route_t *route);
+mpl_route_t *mpl_put_route(mpl_route_t *route);
 bool mpl_remove_route(uint32_t key);
-bool mpl_downlink_exists(uint32_t key);
+bool mpl_route_exists(uint32_t key);
 
 // Node functions
 struct mpl_node_t *mpl_get_node(uint32_t address);
-bool mpl_put_node(struct mpl_node_t *node);
+mpl_node_t *mpl_put_node(struct mpl_node_t *node);
 bool mpl_remove_node(uint32_t address);
 bool mpl_node_exists(uint32_t address);
 void mpl_reset_node_costs();
@@ -41,5 +41,7 @@ bool mpl_edges_full(void);
 bool mpl_nodes_full(void);
 uint16_t mpl_edge_count(void);
 uint16_t mpl_node_count(void);
+uint16_t mpl_route_count(void);
+
 
 #endif

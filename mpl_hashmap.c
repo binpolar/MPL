@@ -46,7 +46,7 @@ mpl_edge_t *mpl_get_edge(mpl_node_t *n1, mpl_node_t *n2)
     return (mpl_edge_t *)cplus_hashmap_get(edge_descriptor, mpl_get_edge_key(n1, n2));
 }
 
-bool mpl_put_edge(mpl_edge_t *edge) // Changed to pointer
+mpl_edge_t *mpl_put_edge(mpl_edge_t *edge) // Changed to pointer
 {
     if (!edge)
         return false;
@@ -69,7 +69,7 @@ mpl_node_t *mpl_get_node(uint32_t key)
     return (mpl_node_t *)cplus_hashmap_get(node_descriptor, key);
 }
 
-bool mpl_put_node(mpl_node_t *node) // Fixed function name and parameter
+mpl_node_t *mpl_put_node(mpl_node_t *node) // Fixed function name and parameter
 {
     if (!node)
         return false;
@@ -78,7 +78,7 @@ bool mpl_put_node(mpl_node_t *node) // Fixed function name and parameter
 
 bool mpl_remove_node(uint32_t address)
 {
-    return cplus_hashmap_remove(node_descriptor, address);
+    return (mpl_node_t *)cplus_hashmap_remove(node_descriptor, address);
 }
 
 bool mpl_node_exists(uint32_t address)
@@ -123,6 +123,16 @@ uint16_t mpl_node_count(void)
     return count;
 }
 
+uint16_t mpl_route_count(void){
+    uint32_t count = 0;
+    for (int i = 0; i < MPL_MAX_NODES; i++)
+    {
+        if (routes[i].is_valid)
+            count++;
+    }
+    return count;
+}
+
 bool mpl_edges_full(void)
 {
     return mpl_edge_count() >= MPL_MAX_EDGES;
@@ -139,11 +149,11 @@ mpl_route_t *mpl_get_route(uint32_t key)
     return (mpl_route_t *)cplus_hashmap_get(routes_descriptor, key);
 }
 
-bool mpl_put_route(mpl_route_t *route)
+mpl_route_t *mpl_put_route(mpl_route_t *route)
 {
     if (!route)
         return false;
-    return cplus_hashmap_put(routes_descriptor, route);
+    return (mpl_route_t*)cplus_hashmap_put(routes_descriptor, route);
 }
 
 bool mpl_remove_route(uint32_t key) // Fixed: use cplus_hashmap_remove
