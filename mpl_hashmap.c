@@ -9,7 +9,7 @@
 // Storage arrays
 mpl_edge_t edges[MPL_MAX_EDGES];
 mpl_node_t nodes[MPL_MAX_NODES];
-mpl_route_t downlinks[MPL_MAX_NODES];
+mpl_route_t routes[MPL_MAX_NODES];
 
 // Hashmap descriptors - FIXED initialization syntax
 cplus_hashmap_desc_t tedge_descriptor = {
@@ -22,22 +22,22 @@ cplus_hashmap_desc_t tnode_descriptor = {
     .data_size = sizeof(mpl_node_t),
     .data_length = MPL_MAX_NODES};
 
-cplus_hashmap_desc_t tdownlinks_descriptor = {
-    .data = downlinks,
+cplus_hashmap_desc_t troutes_descriptor = {
+    .data = routes,
     .data_size = sizeof(mpl_route_t),
     .data_length = MPL_MAX_NODES};
 
-cplus_hashmap_desc_t *downlinks_descriptor, *node_descriptor, *edge_descriptor;
+cplus_hashmap_desc_t *routes_descriptor, *node_descriptor, *edge_descriptor;
 
 // Auto-initialization doesnt work on msvc
 /*__attribute__((constructor)) static*/ void init_maps(void)
 {
-    downlinks_descriptor = &tdownlinks_descriptor;
+    routes_descriptor = &troutes_descriptor;
     node_descriptor = &tnode_descriptor;
     edge_descriptor = &tedge_descriptor;
     cplus_hashmap_init(edge_descriptor);
     cplus_hashmap_init(node_descriptor);
-    cplus_hashmap_init(downlinks_descriptor);
+    cplus_hashmap_init(routes_descriptor);
 }
 
 // Edge functions
@@ -134,24 +134,24 @@ bool mpl_nodes_full(void)
 }
 
 // dolwnlinksk functions
-mpl_route_t *mpl_get_downlink(uint32_t key)
+mpl_route_t *mpl_get_route(uint32_t key)
 {
-    return (mpl_route_t *)cplus_hashmap_get(downlinks_descriptor, key);
+    return (mpl_route_t *)cplus_hashmap_get(routes_descriptor, key);
 }
 
-bool mpl_put_downlink(mpl_route_t *route)
+bool mpl_put_route(mpl_route_t *route)
 {
     if (!route)
         return false;
-    return cplus_hashmap_put(downlinks_descriptor, route);
+    return cplus_hashmap_put(routes_descriptor, route);
 }
 
-bool mpl_remove_downlink(uint32_t key) // Fixed: use cplus_hashmap_remove
+bool mpl_remove_route(uint32_t key) // Fixed: use cplus_hashmap_remove
 {
-    return cplus_hashmap_remove(downlinks_descriptor, key);
+    return cplus_hashmap_remove(routes_descriptor, key);
 }
 
-bool mpl_downliink_exists(uint32_t key)
+bool mpl_route_exists(uint32_t key)
 {
-    return cplus_hashmap_exists(downlinks_descriptor, key);
+    return cplus_hashmap_exists(routes_descriptor, key);
 }

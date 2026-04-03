@@ -13,7 +13,7 @@ extern struct cplus_hashmap_desc_t *edge_descriptor;
 
 extern struct cplus_hashmap_desc_t *node_descriptor;
 
-extern struct cplus_hashmap_desc_t *downlinks_descriptor;
+extern struct cplus_hashmap_desc_t *routes_descriptor;
 
 void init_maps(void);
 
@@ -23,10 +23,10 @@ bool mpl_put_edge(mpl_edge_t *edge);
 bool mpl_remove_edge(uint32_t key);
 bool mpl_edge_exists(mpl_node_t *n1, mpl_node_t *n2);
 
-// downlinks functions
-struct mpl_route_t *mpl_get_downlink(uint32_t key);
-bool mpl_put_downlink(mpl_route_t *route);
-bool mpl_remove_downlink(uint32_t key);
+// routes functions
+struct mpl_route_t *mpl_get_route(uint32_t key);
+bool mpl_put_route(mpl_route_t *route);
+bool mpl_remove_route(uint32_t key);
 bool mpl_downlink_exists(uint32_t key);
 
 // Node functions
