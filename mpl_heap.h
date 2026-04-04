@@ -5,8 +5,10 @@
 
 void init_heap(void);
 
-bool mpl_heap_push(mpl_heap_entry_t *node);
-bool mpl_heap_pop(mpl_heap_entry_t *out_element);
+struct mpl_heap_entry_t;
+
+bool mpl_heap_push(struct mpl_heap_entry_t *node);
+bool mpl_heap_pop(struct mpl_heap_entry_t *out_element);
 
 bool mpl_heap_empty();
 void mpl_heap_reset(void);

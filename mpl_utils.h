@@ -11,7 +11,7 @@ typedef struct mpl_route_t
     uint32_t key; // sender/down dest
     bool is_valid;
 
-    uint16_t hops[MPL_MAX_ROUTE_LEN];
+    uint32_t hops[MPL_MAX_ROUTE_LEN];
     uint8_t hop_count;
     uint32_t total_cost;
 } mpl_route_t;
@@ -51,5 +51,8 @@ bool mpl_trace_route(mpl_node_t *dest, mpl_node_t *src, mpl_route_t *res);
 uint32_t mpl_get_edge_key(mpl_node_t *n1, mpl_node_t *n2);
 
 void mpl_add_edge_to_node(mpl_node_t *node, mpl_edge_t *edge);
+
+void mpl_print_route(mpl_route_t *route);
+void mpl_print_all_routes();
 
 #endif

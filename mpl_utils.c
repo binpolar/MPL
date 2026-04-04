@@ -1,6 +1,9 @@
 #include "mpl_utils.h"
 #include <stdbool.h>
+#include <stdio.h>
+
 #include <stddef.h>
+#include "mpl_hashmap.h"
 
 bool mpl_trace_route(mpl_node_t *dest, mpl_node_t *src, mpl_route_t *res)
 {
@@ -59,5 +62,27 @@ void mpl_add_edge_to_node(mpl_node_t *node, mpl_edge_t *edge) // todo make it re
     if (!exists && first_slot != 0xFF)
     {
         node->edges[first_slot] = edge;
+    }
+}
+void mpl_print_route(mpl_route_t *tmp)
+{
+    printf("----------ROUTE TO %0X:----------\n\r", tmp->key);
+    for (uint16_t j = 0; j < tmp->hop_count - 1; j++)
+    {
+        printf("(%X)->", tmp->hops[j]);
+    }
+    printf("(%X)\n\r", tmp->hops[tmp->hop_count]);
+}
+void mpl_print_all_routes()
+{
+
+    mpl_route_t *arr = (mpl_route_t *)(routes_descriptor);
+    for (uint16_t i = 0; i < MPL_MAX_NODES; i++)
+    {
+        mpl_route_t *tmp = &arr[i];
+        if (tmp->is_valid)
+        {
+            mpl_print_route(tmp);
+        }
     }
 }

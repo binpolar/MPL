@@ -17,21 +17,24 @@ extern struct cplus_hashmap_desc_t *routes_descriptor;
 
 void init_maps(void);
 
+struct mpl_node_t;
+struct mpl_edge_t;
+
 // Edge functions
-struct mpl_edge_t *mpl_get_edge(mpl_node_t *n1, mpl_node_t *n2);
-mpl_edge_t *mpl_put_edge(mpl_edge_t *edge);
+struct mpl_edge_t *mpl_get_edge(struct mpl_node_t *n1,struct mpl_node_t *n2);
+struct mpl_edge_t *mpl_put_edge(struct mpl_edge_t *edge);
 bool mpl_remove_edge(uint32_t key);
-bool mpl_edge_exists(mpl_node_t *n1, mpl_node_t *n2);
+bool mpl_edge_exists(struct mpl_node_t *n1,struct mpl_node_t *n2);
 
 // routes functions
 struct mpl_route_t *mpl_get_route(uint32_t key);
-mpl_route_t *mpl_put_route(mpl_route_t *route);
+struct mpl_route_t *mpl_put_route(struct mpl_route_t *route);
 bool mpl_remove_route(uint32_t key);
 bool mpl_route_exists(uint32_t key);
 
 // Node functions
 struct mpl_node_t *mpl_get_node(uint32_t address);
-mpl_node_t *mpl_put_node(struct mpl_node_t *node);
+struct mpl_node_t *mpl_put_node(struct mpl_node_t *node);
 bool mpl_remove_node(uint32_t address);
 bool mpl_node_exists(uint32_t address);
 void mpl_reset_node_costs();
