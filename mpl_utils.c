@@ -1,4 +1,6 @@
 #include "mpl_utils.h"
+#include "cplus_hashmap.h"
+
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -71,12 +73,12 @@ void mpl_print_route(mpl_route_t *tmp)
     {
         printf("(%X)->", tmp->hops[j]);
     }
-    printf("(%X)\n\r", tmp->hops[tmp->hop_count]);
+    printf("(%X)\n\r", tmp->hops[tmp->hop_count-1]);
 }
 void mpl_print_all_routes()
 {
 
-    mpl_route_t *arr = (mpl_route_t *)(routes_descriptor);
+    mpl_route_t *arr = (mpl_route_t *)(routes_descriptor->data);
     for (uint16_t i = 0; i < MPL_MAX_NODES; i++)
     {
         mpl_route_t *tmp = &arr[i];
