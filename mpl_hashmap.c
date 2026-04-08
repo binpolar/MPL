@@ -9,7 +9,7 @@
 // Storage arrays
 mpl_edge_t mpl_edges[MPL_MAX_EDGES];
 mpl_node_t mpl_nodes[MPL_MAX_NODES];
-mpl_route_t mmpl_routes[MPL_MAX_NODES];
+mpl_route_t mpl_routes[MPL_MAX_NODES];
 
 // Hashmap descriptors - FIXED initialization syntax
 cplus_hashmap_desc_t tedge_descriptor = {
@@ -23,7 +23,7 @@ cplus_hashmap_desc_t tnode_descriptor = {
     .data_length = MPL_MAX_NODES};
 
 cplus_hashmap_desc_t troutes_descriptor = {
-    .data = mmpl_routes,
+    .data = mpl_routes,
     .data_size = sizeof(mpl_route_t),
     .data_length = MPL_MAX_NODES};
 
@@ -128,7 +128,7 @@ uint16_t mpl_route_count(void)
     uint32_t count = 0;
     for (int i = 0; i < MPL_MAX_NODES; i++)
     {
-        if (mmpl_routes[i].is_valid)
+        if (mpl_routes[i].is_valid)
             count++;
     }
     return count;

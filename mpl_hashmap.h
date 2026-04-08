@@ -26,7 +26,7 @@ struct mpl_edge_t *mpl_put_edge(struct mpl_edge_t *edge);
 bool mpl_remove_edge(uint32_t key);
 bool mpl_edge_exists(struct mpl_node_t *n1, struct mpl_node_t *n2);
 
-// mmpl_routes functions
+// mpl_routes functions
 struct mpl_route_t *mpl_get_route(uint32_t key);
 struct mpl_route_t *mpl_put_route(struct mpl_route_t *route);
 bool mpl_remove_route(uint32_t key);
