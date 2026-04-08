@@ -68,12 +68,13 @@ void mpl_add_edge_to_node(mpl_node_t *node, mpl_edge_t *edge) // todo make it re
 }
 void mpl_print_route(mpl_route_t *tmp)
 {
-    printf("----------ROUTE TO %0X:----------\n\r", tmp->key);
+    printf("----------ROUTE FROM %d TO %0X:----------\n\r", tmp->key, tmp->hops[tmp->hop_count - 1]);
     for (uint16_t j = 0; j < tmp->hop_count - 1; j++)
     {
-        printf("(%X)->", tmp->hops[j]);
+        printf("| (%X)->", tmp->hops[j]);
     }
-    printf("(%X)\n\r", tmp->hops[tmp->hop_count-1]);
+    printf("(%X) |\n\r", tmp->hops[tmp->hop_count - 1]);
+    printf("--------------------\n\r", tmp->key);
 }
 void mpl_print_all_routes()
 {
