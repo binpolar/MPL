@@ -7,23 +7,23 @@
 #include "cplus_hashmap.h"
 
 // Storage arrays
-mpl_edge_t edges[MPL_MAX_EDGES];
-mpl_node_t nodes[MPL_MAX_NODES];
-mpl_route_t routes[MPL_MAX_NODES];
+mpl_edge_t mpl_edges[MPL_MAX_EDGES];
+mpl_node_t mpl_nodes[MPL_MAX_NODES];
+mpl_route_t mmpl_routes[MPL_MAX_NODES];
 
 // Hashmap descriptors - FIXED initialization syntax
 cplus_hashmap_desc_t tedge_descriptor = {
-    .data = edges,
+    .data = mpl_edges,
     .data_size = sizeof(mpl_edge_t),
     .data_length = MPL_MAX_EDGES};
 
 cplus_hashmap_desc_t tnode_descriptor = {
-    .data = nodes,
+    .data = mpl_nodes,
     .data_size = sizeof(mpl_node_t),
     .data_length = MPL_MAX_NODES};
 
 cplus_hashmap_desc_t troutes_descriptor = {
-    .data = routes,
+    .data = mmpl_routes,
     .data_size = sizeof(mpl_route_t),
     .data_length = MPL_MAX_NODES};
 
@@ -92,10 +92,10 @@ void mpl_reset_node_costs()
     for (int i = 0; i < MPL_MAX_NODES; i++)
     {
         // Only reset if node exists in topology
-        if (nodes[i].is_valid)
+        if (mpl_nodes[i].is_valid)
         {
-            nodes[i].best_cost = UINT32_MAX;
-            nodes[i].best_prev_hop = NULL;
+            mpl_nodes[i].best_cost = UINT32_MAX;
+            mpl_nodes[i].best_prev_hop = NULL;
         }
     }
 }
@@ -106,7 +106,7 @@ uint16_t mpl_edge_count(void)
     uint32_t count = 0;
     for (int i = 0; i < MPL_MAX_EDGES; i++)
     {
-        if (edges[i].is_valid)
+        if (mpl_edges[i].is_valid)
             count++;
     }
     return count;
@@ -117,17 +117,18 @@ uint16_t mpl_node_count(void)
     uint32_t count = 0;
     for (int i = 0; i < MPL_MAX_NODES; i++)
     {
-        if (nodes[i].is_valid)
+        if (mpl_nodes[i].is_valid)
             count++;
     }
     return count;
 }
 
-uint16_t mpl_route_count(void){
+uint16_t mpl_route_count(void)
+{
     uint32_t count = 0;
     for (int i = 0; i < MPL_MAX_NODES; i++)
     {
-        if (routes[i].is_valid)
+        if (mmpl_routes[i].is_valid)
             count++;
     }
     return count;
@@ -153,7 +154,7 @@ mpl_route_t *mpl_put_route(mpl_route_t *route)
 {
     if (!route)
         return false;
-    return (mpl_route_t*)cplus_hashmap_put(routes_descriptor, route);
+    return (mpl_route_t *)cplus_hashmap_put(routes_descriptor, route);
 }
 
 bool mpl_remove_route(uint32_t key) // Fixed: use cplus_hashmap_remove
