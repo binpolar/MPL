@@ -35,7 +35,7 @@ bool mpl_create_node_if_not_exists(uint32_t addr)
     return mpl_put_node(&node);
 }
 
-mpl_route_t * mpl_find_route(mpl_node_t *src, mpl_node_t *dest)
+mpl_route_t *mpl_find_route(mpl_node_t *src, mpl_node_t *dest)
 {
     // Run Dijkstra
     if (!mpl_findpath(src, dest))
@@ -46,9 +46,12 @@ mpl_route_t * mpl_find_route(mpl_node_t *src, mpl_node_t *dest)
 
     bool ret = mpl_trace_route(dest, src, &tmp);
     tmp.key = dest->address;
-    if(ret){
+    if (ret)
+    {
         return mpl_put_route(&tmp);
-    }else{
-        return false;
+    }
+    else
+    {
+        return NULL;
     }
 }

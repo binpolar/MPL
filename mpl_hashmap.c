@@ -153,7 +153,7 @@ mpl_route_t *mpl_get_route(uint32_t key)
 mpl_route_t *mpl_put_route(mpl_route_t *route)
 {
     if (!route)
-        return false;
+        return NULL;
     return (mpl_route_t *)cplus_hashmap_put(routes_descriptor, route);
 }
 
