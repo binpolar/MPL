@@ -1,9 +1,9 @@
 #ifndef MPL_HASHMAP_H_
 #define MPL_HASHMAP_H_
 
-#define MPL_MAX_EDGES 511 // must be 2^n minus one for efficient modulus ops!!!
+#define MPL_MAX_EDGES 512 // must be 2^n for efficient modulus ops!!!
 
-#define MPL_MAX_NODES 255 // must be 2^n minus one for efficient modulus ops!!!
+#define MPL_MAX_NODES 256 // must be 2^n for efficient modulus ops!!!
 
 #include <stdint.h>
 #include <stdbool.h>
